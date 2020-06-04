@@ -51,7 +51,7 @@
 
 - step:
     name: Batch inference (MNIST)
-    image: tensorflow/tensorflow:1.13.1-py3
+    image: docker.io/ruksi/secret-repository:tf-1.13.1-py3
     command:
       - pip install --disable-pip-version-check --quiet -r requirements.txt
       - python batch_inference.py --model-dir=/valohai/inputs/model/ --image-dir=/valohai/inputs/images
@@ -65,7 +65,7 @@
 
 - step:
     name: Compare predictions (MNIST)
-    image: tensorflow/tensorflow:1.13.1-py3
+    image: docker.io/ruksi/secret-repository:tf-1.13.1-py3
     command: python compare.py --prediction-dir=/valohai/inputs/predictions/
     inputs:
       - name: predictions
@@ -172,14 +172,14 @@
 
 - endpoint:
     name: greet
-    image: python:3.6
+    image: docker.io/ruksi/secret-repository:tf-1.13.1-py3
     port: 8000
     server-command: python -m wsgiref.simple_server
 
 - endpoint:
     name: predict-digit
     description: predict digits from image inputs ("file" parameter)
-    image: tensorflow/tensorflow:1.13.1-py3
+    image: docker.io/ruksi/secret-repository:tf-1.13.1-py3
     wsgi: predict_wsgi:predict_wsgi
     files:
       - name: model
